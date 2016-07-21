@@ -2,11 +2,11 @@
 
 # (Optional)
 # Elasticsearch host
-# es_host: elasticsearch.example.com
+es_host: localhost
 
 # (Optional)
 # Elasticsearch port
-# es_port: 14900
+es_port: 9200
 
 # (OptionaL) Connect with SSL to elasticsearch
 #use_ssl: True
@@ -26,11 +26,11 @@ type: frequency
 
 # (Required)
 # Index to search, wildcard supported
-index: logstash-*
+index: filebeat-*
 
 # (Required, frequency specific)
 # Alert when this many documents matching the query occur within a timeframe
-num_events: 50
+num_events: 1
 
 # (Required, frequency specific)
 # num_events must occur within this amount of time to trigger an alert
@@ -43,14 +43,22 @@ timeframe:
 # For more info: http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl.html
 filter:
 - term:
-    some_field: "some_value"
+   response: "200"
 
+#smtp_host: "smtp.gmail.com"
+#smtp_port: 465
+#smtp_ssl: true
+#smtp_auth_file: '/home/ubuntu/elastalert/example_rules/auth.yaml'
 # (Required)
+
 # The alert is use when a match is found
 alert:
-- "email"
+ - command
+command: "python /home/ubuntu/elastalert/send_email.py"
+#- "email"
 
 # (required, email specific)
 # a list of email addresses to send alerts to
-email:
-- "elastalert@example.com"
+#email:
+#- "vivek@happay.in"
+
